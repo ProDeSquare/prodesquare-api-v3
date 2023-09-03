@@ -1,0 +1,12 @@
+{
+  "name": "prodesquare-api-v3",
+  "version": "3.0.0",
+  "description": "API used by ProDeSquare",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ProDeSquare",
+  "license": "ISC"
+}
