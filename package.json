@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "nodemon"
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "ProDeSquare",
