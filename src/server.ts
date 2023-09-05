@@ -1,5 +1,6 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
 import connection from "./db/connection";
+import Routes from "./routes";
 import dotenv from "dotenv";
 import path from "path";
 
@@ -9,9 +10,7 @@ const server: Express = express();
 const PORT: number = +process.env.PORT || 8000;
 connection();
 
-server.get("/", (req: Request, res: Response): void => {
-  res.send("Hello World!");
-});
+server.use(`${process.env.ROUTE_PREFIX}`, Routes);
 
 server.listen(PORT, (): void => {
   console.log(`Server is running at http://localhost:${PORT}`);
