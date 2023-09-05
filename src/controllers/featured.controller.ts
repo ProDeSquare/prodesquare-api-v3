@@ -6,7 +6,9 @@ import Featured from "../schemas/featured.schema";
 // @access  Public
 export const getFeatured = async (req: Request, res: Response) => {
   try {
-    const featured = await Featured.find().sort({ _id: -1 });
+    const featured = await Featured.find()
+      .sort({ _id: -1 })
+      .limit(+req.params.count || 0);
 
     res.status(200).json(featured);
   } catch (err) {
