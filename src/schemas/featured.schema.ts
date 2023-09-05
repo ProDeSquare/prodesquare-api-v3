@@ -1,12 +1,15 @@
 import mongoose from "mongoose";
 
-const Featured = new mongoose.Schema({
-  title: String,
-  description: String,
-  built_with: String,
-  github: String,
-  image: String,
-  link: String,
-});
+const FeaturedSchema = new mongoose.Schema(
+  {
+    title: String,
+    description: String,
+    built_with: String,
+    github: String,
+    image: String,
+    link: String,
+  },
+  { collection: "featured" }
+);
 
-export default mongoose.model("Featured", Featured);
+export default mongoose.model("Featured", FeaturedSchema);
