@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import connection from "./db/connection";
+import compression from "compression";
 import Routes from "./routes";
 import dotenv from "dotenv";
 import path from "path";
@@ -12,6 +13,7 @@ const PORT: number = +process.env.PORT || 8000;
 connection();
 
 server.use(cors());
+server.use(compression());
 server.use(`${process.env.ROUTE_PREFIX}`, Routes);
 
 server.listen(PORT, (): void => {
