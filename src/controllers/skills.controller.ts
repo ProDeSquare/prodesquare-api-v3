@@ -17,7 +17,7 @@ export const getSkills = async (req: Request, res: Response): Promise<void> => {
 
     const skills: Record<string, string[]> = {};
 
-    initial.forEach((skill) => {
+    initial.map((skill) => {
       skills[`${skill.type}s`]
         ? skills[`${skill.type}s`].push(skill.technology)
         : (skills[`${skill.type}s`] = [skill.technology]);
