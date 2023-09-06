@@ -20,7 +20,7 @@ export const getSkills = async (req: Request, res: Response): Promise<void> => {
     initial.forEach((skill) => {
       skills[`${skill.type}s`]
         ? skills[`${skill.type}s`].push(skill.technology)
-        : (skills[`${skill.type}s`] = []);
+        : (skills[`${skill.type}s`] = [skill.technology]);
     });
 
     res.status(200).json(skills);
