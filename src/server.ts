@@ -14,9 +14,9 @@ connection();
 
 server.use(cors());
 server.use(compression());
+server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(`${process.env.ROUTE_PREFIX}`, Routes);
-server.use(express.json());
 
 server.listen(PORT, (): void => {
   console.log(`Server is running at http://localhost:${PORT}`);
