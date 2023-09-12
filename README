@@ -1,5 +1,0 @@
-Data provider API for ProDeSquare.
-
-pnpm install
-pnpm run build
-pnpm start
