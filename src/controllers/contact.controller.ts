@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import nodemailer from "nodemailer";
 
+type MailFromType = "name" | "address";
+
 type MessageType = {
-  from: { name: string; address: string };
+  from: Record<MailFromType, string> | string;
   to: string;
   subject: string;
   text: string;
-  replyTo: string;
+  replyTo?: string;
 };
 
 // @desc    Send Email
@@ -25,7 +27,7 @@ export const sendMessage = (req: Request, res: Response): void => {
     },
   });
 
-  const msg: MessageType = {
+  const msg: Required<MessageType> = {
     from: {
       name: name,
       address: process.env.EMAIL,
