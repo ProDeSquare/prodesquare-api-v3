@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import nodemailer from "nodemailer";
+import SendMail from "../helpers/mail.helper";
 
 type MailFromType = "name" | "address";
 
@@ -14,18 +14,11 @@ type MessageType = {
 // @desc    Send Email
 // @route   GET /api/v3/contact/send-message
 // @access  Public
-export const sendMessage = (req: Request, res: Response): void => {
+export const sendMessage = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
   const { name, email, message }: Record<string, string> = req.body;
-
-  const transporter: nodemailer.Transporter = nodemailer.createTransport({
-    host: process.env.SMTP,
-    port: +process.env.SMTP_PORT,
-    secure: process.env.NODE_ENV === "production",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD,
-    },
-  });
 
   const msg: Required<MessageType> = {
     from: {
@@ -38,9 +31,10 @@ export const sendMessage = (req: Request, res: Response): void => {
     replyTo: email,
   };
 
-  transporter.sendMail(msg, (err: Error, info) => {
-    err
-      ? res.status(400).send("Something went wrong!")
-      : res.status(201).send("Mail sent successfully!");
-  });
+  try {
+    await SendMail(msg);
+    res.status(200).send("Mail Sent Successfully");
+  } catch (err) {
+    res.status(400).json(err);
+  }
 };
