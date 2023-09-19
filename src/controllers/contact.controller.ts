@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import SendMail from "../helpers/mail.helper";
+import requestHasEmptyFields from "../helpers/empty.helper";
 
 type MailFromType = "name" | "address";
 
@@ -20,6 +21,11 @@ export const sendMessage = async (
 ): Promise<void> => {
   const { name, email, message }: Record<string, string> = req.body;
 
+  if (requestHasEmptyFields({ name, email, message })) {
+    res.status(422).send("All fields are required!");
+    return;
+  }
+
   const msg: Required<MessageType> = {
     from: {
       name: name,
@@ -35,6 +41,6 @@ export const sendMessage = async (
     await SendMail(msg);
     res.status(200).send("Mail Sent Successfully");
   } catch (err) {
-    res.status(400).json(err);
+    res.status(400).send("Something went wrong!");
   }
 };
